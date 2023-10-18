@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Input from '../../../components/input/Input';
 import Button from '../../../components/button/Button';
 import { Title } from '../LoginPage/Login';
+import { LayoutWrapper } from '../../../layout/Layout';
 
 function Join() {
   const [userId, setUserId] = useState('');
@@ -82,15 +83,10 @@ function Join() {
   );
 }
 
-const Wrapper = styled.div`
-  margin-top: 2em;
-  width: 100%;
-  min-height: 50vh;
-  /* box-shadow: inset 0 0 30px red; */
+const Wrapper = styled(LayoutWrapper)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 40px; */
 `;
 
 export default Join;

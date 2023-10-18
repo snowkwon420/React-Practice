@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Input from '../../../components/input/Input';
 import Button from '../../../components/button/Button';
 import { Link } from 'react-router-dom';
+import { LayoutWrapper } from '../../../layout/Layout';
 
 function Login() {
   const [userId, setUserId] = useState('');
@@ -78,15 +79,10 @@ export const Title = styled.h2`
   color: var(--main-color);
 `;
 
-const Wrapper = styled.div`
-  margin-top: 2em;
-  width: 100%;
-  min-height: 50vh;
-  /* box-shadow: inset 0 0 30px red; */
+const Wrapper = styled(LayoutWrapper)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 40px; */
 `;
 
 export default Login;
