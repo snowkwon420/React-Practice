@@ -34,6 +34,12 @@ section{
   margin:0 auto;
 }
 
+button{
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
 .title{
   text-decoration: none;
   color: #ff7028;
@@ -103,7 +109,7 @@ body {
 #footerlogo {
   display: inline-block;
   text-decoration: none;
-  color: #ffffff;
+  color: #ff7028;
   font-size: 2.5em;
   padding-top: 15px;
   text-align: center;

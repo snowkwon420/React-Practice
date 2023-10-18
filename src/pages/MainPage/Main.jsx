@@ -1,14 +1,13 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Splash from '../SplashPage/Splash';
 import NavBar from '../../components/navbar/NavBar';
 import Footer from '../../components/footer/Footer';
-import Home from '../Homepage/Home';
-import Join from '../Auth/JoinPage/Join';
-import Login from '../Auth/LoginPage/Login';
+import Routing from '../../routes/Routing';
 
 function Main() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
     <>
       <BrowserRouter>
@@ -20,13 +19,8 @@ function Main() {
           </h1>
         </Header>
         <Wrapper>
-          <NavBar />
-          <Routes>
-            <Route path='/Splash' element={<Splash />} />
-            <Route path='/' element={<Home />} />
-            <Route path='/Join' element={<Join />} />
-            <Route path='/Login' element={<Login />} />
-          </Routes>
+          <NavBar isLogin={isLogin} />
+          <Routing />
         </Wrapper>
         <Footer />
       </BrowserRouter>

@@ -1,23 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReactComponent as ProfileIcon } from '../../assets/img/icon-user.svg';
 
-function NavBar() {
+function NavBar(props) {
   return (
     <NavWrapper>
-      <ul>
-        <LeftLi>
-          <StyledLink to='/'>Recipe</StyledLink>
-        </LeftLi>
-        <RightLi>
-          <StyledLink to='/Join'>Join</StyledLink>
-          <StyledLink to='/Login'>Login</StyledLink>
-        </RightLi>
-      </ul>
+      {props.isLogin ? (
+        <ul>
+          <LeftLi>
+            <StyledLink to='/'>Recipe</StyledLink>
+          </LeftLi>
+          <Profile>(아이디)</Profile>
+        </ul>
+      ) : (
+        <ul>
+          <LeftLi>
+            <StyledLink to='/'>Recipe</StyledLink>
+          </LeftLi>
+          <RightLi>
+            <StyledLink to='/Login'>Login</StyledLink>
+            <StyledLink to='/Join'>Join</StyledLink>
+          </RightLi>
+        </ul>
+      )}
     </NavWrapper>
   );
 }
 
+const Profile = styled.div`
+  font-size: 18px;
+  margin-right: 20px;
+  color: white;
+`;
 const NavWrapper = styled.nav`
   width: 100%;
   height: 36px;

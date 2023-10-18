@@ -1,19 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { FaUtensils } from 'react-icons/fa';
 
-function Splash() {
+const Splash = () => {
   return (
     <Section>
       <SplashContainer>
-        <H1>한끼얼마</H1>
-        <Animation />
+        <AnimatedLogo>한끼얼마</AnimatedLogo>
+        <Animation>
+          <ForkIcon />
+        </Animation>
       </SplashContainer>
     </Section>
   );
-}
+};
 
 const Section = styled.section`
-  background-color: #fff;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -24,35 +26,49 @@ const SplashContainer = styled.div`
   text-align: center;
 `;
 
-const H1 = styled.h1`
+const Logo = styled.h1`
   font-size: 3rem;
   color: #ff7028;
+  margin-bottom: 1rem;
+`;
+
+const pulse = keyframes`
+  0% {
+    transform: scale(100);
+  }
+  60% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
 `;
 
 const Animation = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #ff7028;
-  border-radius: 50%;
-  animation: moveText 2s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  animation: ${pulse} 2s 1;
+`;
 
-  @keyframes moveText {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(50px);
-    }
-    50% {
-      transform: translateX(0);
-    }
-    75% {
-      transform: translateX(-50px);
-    }
-    100% {
-      transform: translateX(0);
-    }
+const ForkIcon = styled(FaUtensils)`
+  color: #ff7028;
+  font-size: 5rem;
+`;
+
+const fade = keyframes`
+  0% {
+    opacity: 0;
   }
+  70% {
+    opacity: 1;
+  }
+`;
+
+const AnimatedLogo = styled(Logo)`
+  animation: ${fade} 3s ease 1s forwards;
+  opacity: 0;
 `;
 
 export default Splash;
