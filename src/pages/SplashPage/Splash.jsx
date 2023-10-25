@@ -1,10 +1,12 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaUtensils } from 'react-icons/fa';
+import GlobalStyle from '../../style/GlobalStyle';
 
 const Splash = () => {
   return (
     <Section>
+      <GlobalStyle />
       <SplashContainer>
         <AnimatedLogo>한끼얼마</AnimatedLogo>
         <Animation>

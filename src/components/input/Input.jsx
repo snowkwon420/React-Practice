@@ -66,7 +66,7 @@ const StlyedLabel = styled.label`
 
 const StyledInput = styled.input`
   width: ${(props) => props.width || '288px'};
-  height: 30px;
+  height: 40px;
   border: none;
   border-bottom: 2px solid #878787;
   font-size: 13px;

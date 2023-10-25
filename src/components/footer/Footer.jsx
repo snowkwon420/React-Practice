@@ -18,6 +18,7 @@ const footerStyle = {
   fontStyle: 'normal',
   color: '#ff7028',
   clear: 'both',
+  minWidth: '1000px',
 };
 
 const footerlogo = {

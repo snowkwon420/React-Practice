@@ -77,6 +77,7 @@ export const Title = styled.h2`
   font-size: 30px;
   margin-bottom: 30px;
   color: var(--main-color);
+  font-family: 'yg-jalnan';
 `;
 
 const Wrapper = styled(LayoutWrapper)`

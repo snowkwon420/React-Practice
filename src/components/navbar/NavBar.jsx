@@ -9,14 +9,14 @@ function NavBar(props) {
       {props.isLogin ? (
         <ul>
           <LeftLi>
-            <StyledLink to='/'>Recipe</StyledLink>
+            <StyledLink to='/postlist'>Recipe</StyledLink>
           </LeftLi>
           <Profile>(아이디)</Profile>
         </ul>
       ) : (
         <ul>
           <LeftLi>
-            <StyledLink to='/'>Recipe</StyledLink>
+            <StyledLink to='/postlist'>Recipe</StyledLink>
           </LeftLi>
           <RightLi>
             <StyledLink to='/Login'>Login</StyledLink>

@@ -5,6 +5,7 @@ import Home from '../pages/Homepage/Home';
 import Join from '../pages/Auth/JoinPage/Join';
 import Login from '../pages/Auth/LoginPage/Login';
 import Post from '../pages/PostPage/Post';
+import PostList from '../pages/PostPage/PostList';
 
 function Routing() {
   return (
@@ -14,6 +15,7 @@ function Routing() {
       <Route path='/Join' element={<Join />} />
       <Route path='/Login' element={<Login />} />
       <Route path='/Post' element={<Post />} />
+      <Route path='/PostList' element={<PostList />} />
     </Routes>
   );
 }
