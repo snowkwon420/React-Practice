@@ -13,7 +13,7 @@ function Input(props) {
           {props.label}
         </StlyedLabel>
         <StyledInput {...props} />
-        {props.isValid ? null : <ErrorMessage>{props.errMsg}</ErrorMessage>}
+        {props.isvalid ? null : <ErrorMessage>{props.errmsg}</ErrorMessage>}
       </InputWrapper>
     </>
   );
