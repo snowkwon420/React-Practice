@@ -22,12 +22,9 @@ function PostList() {
     if (page === 1) {
       setTotalDataLength(newData.posts[0].id);
     }
-    console.log(newData);
-    console.log(totalDataLength);
   };
   useEffect(() => {
     postData();
-    console.log(totalDataLength);
   }, [page]);
 
   return (
@@ -40,9 +37,9 @@ function PostList() {
           style={{ border: '3px solid var(--main-color)' }}
         />
         <InputContainer>
-          <Input width='250px' />
+          <Input width='250px' style={{ padding: '0' }} />
           <SearchIcon
-            style={{ position: 'absolute', right: '0px', top: '20px' }}
+            style={{ position: 'absolute', right: '0px', top: '30px' }}
           />
         </InputContainer>
       </HeadWrapper>

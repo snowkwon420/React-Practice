@@ -1,17 +1,22 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from '../../assets/img/icon-user.svg';
+import { isLoginAtom, userNameAtom } from '../../atom/Atom';
 
 function NavBar(props) {
+  const isLogin = useRecoilValue(isLoginAtom);
+  const userName = useRecoilValue(userNameAtom);
+
   return (
     <NavWrapper>
-      {props.isLogin ? (
+      {isLogin ? (
         <ul>
           <LeftLi>
             <StyledLink to='/postlist'>Recipe</StyledLink>
           </LeftLi>
-          <Profile>(아이디)</Profile>
+          <Profile>{userName}</Profile>
         </ul>
       ) : (
         <ul>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBar from '../../components/navbar/NavBar';
@@ -6,8 +7,6 @@ import Footer from '../../components/footer/Footer';
 import Routing from '../../routes/Routing';
 
 function Main() {
-  const [isLogin, setIsLogin] = useState(false);
-
   return (
     <>
       <BrowserRouter>
@@ -19,7 +18,7 @@ function Main() {
           </h1>
         </Header>
         <Wrapper>
-          <NavBar isLogin={isLogin} />
+          <NavBar />
           <Routing />
         </Wrapper>
         <Footer />

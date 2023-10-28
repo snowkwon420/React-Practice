@@ -14,8 +14,8 @@ function StartSplash() {
     return () => clearTimeout(timer);
   }, []);
 
-  // return <div>{showMain ? <Main /> : <Splash />}</div>;
-  return <Main />;
+  return <div>{showMain ? <Main /> : <Splash />}</div>;
+  // return <Main />;
 }
 
 export default StartSplash;

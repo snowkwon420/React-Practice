@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import Input from '../../../components/input/Input';
 import Button from '../../../components/button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LayoutWrapper } from '../../../layout/Layout';
+import LoginAPI from '../../../api/Auth/LoginAPI';
+import {
+  accessTokenAtom,
+  csrfTokenAtom,
+  isLoginAtom,
+  userNameAtom,
+} from '../../../atom/Atom';
 
 function Login() {
   const [userId, setUserId] = useState('');
@@ -11,15 +19,15 @@ function Login() {
   const [isIdValid, setIsIdValid] = useState(null);
   const [isPwValid, setIsPwValid] = useState(null);
 
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [csrfToken, setCsrfToken] = useRecoilState(csrfTokenAtom);
+  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
+  const [userName, setUserName] = useRecoilState(userNameAtom);
+
+  const navigate = useNavigate();
+
   function idValidCheck(event) {
     setUserId(event.target.value);
-    const testEmail = /^[A-Za-z0-9]{6,20}$/i.test(event.target.value);
-
-    if (testEmail) {
-      setIsIdValid(true);
-    } else {
-      setIsIdValid(false);
-    }
   }
 
   function pwValidCheck(event) {
@@ -32,44 +40,71 @@ function Login() {
     }
   }
 
+  const onHandleSubmit = async () => {
+    const data = {
+      username: userId,
+      password: userPassword,
+    };
+    try {
+      const res = await LoginAPI(data);
+      alert('어서오세요!');
+      setAccessToken(res.access_token);
+      setCsrfToken(res.csrf_token);
+      setUserName(res.username);
+      setIsLogin(true);
+      navigate('/');
+    } catch (err) {
+      console.log('아이디 비밀번호를 확인하세요.');
+    }
+  };
+
+  useEffect(() => {});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onHandleSubmit();
+  };
+
   return (
-    <Wrapper>
-      <Title>로그인</Title>
-      <Input
-        label='아이디'
-        type='text'
-        id='userId'
-        name='userId'
-        placeholder=''
-        value={userId}
-        onChange={idValidCheck}
-      />
-      <Input
-        label='비밀번호'
-        type='password'
-        id='userPw'
-        name='userPw'
-        placeholder=''
-        value={userPassword}
-        onChange={pwValidCheck}
-        isValid={false}
-        errMsg='* 오류테스트'
-      />
-      <Button content='로그인' style={{ marginTop: '50px' }} />
-      <Link
-        to={'/join'}
-        style={{
-          width: '100px',
-          height: '30px',
-          textDecoration: 'none',
-          textAlign: 'center',
-          marginTop: '30px',
-          color: 'inherit',
-        }}
-      >
-        회원가입
-      </Link>
-    </Wrapper>
+    <form onSubmit={handleSubmit}>
+      <Wrapper>
+        <Title>로그인</Title>
+        <Input
+          label='아이디'
+          type='text'
+          id='userId'
+          name='userId'
+          placeholder=''
+          value={userId}
+          onChange={idValidCheck}
+        />
+        <Input
+          label='비밀번호'
+          type='password'
+          id='userPw'
+          name='userPw'
+          placeholder=''
+          value={userPassword}
+          onChange={pwValidCheck}
+          isvalid={isPwValid}
+          errmsg='* 6자리 이상 입력하세요'
+        />
+        <Button type='submit' content='로그인' style={{ marginTop: '50px' }} />
+        <Link
+          to={'/join'}
+          style={{
+            width: '100px',
+            height: '30px',
+            textDecoration: 'none',
+            textAlign: 'center',
+            marginTop: '30px',
+            color: 'inherit',
+          }}
+        >
+          회원가입
+        </Link>
+      </Wrapper>
+    </form>
   );
 }
 
