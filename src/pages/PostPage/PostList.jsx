@@ -23,6 +23,7 @@ function PostList() {
       setTotalDataLength(newData.posts[0].id);
     }
   };
+
   useEffect(() => {
     postData();
   }, [page]);
@@ -45,29 +46,33 @@ function PostList() {
       </HeadWrapper>
       <StyledTable>
         <ListHeadWrapper>
-          <th
-            style={{
-              display: 'block',
-              maxWidth: '50px',
-              width: '50px',
-              height: '40px',
-              lineHeight: '40px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            번호
-          </th>
-          <td style={{ width: '50%' }}>요리이름</td>
-          <th style={{ width: '25%' }}>공유자</th>
-          <th style={{ width: '25%' }}>작성일</th>
+          <tr>
+            <th
+              style={{
+                display: 'block',
+                maxWidth: '50px',
+                width: '50px',
+                height: '40px',
+                lineHeight: '40px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              번호
+            </th>
+            <th style={{ width: '50%' }}>요리이름</th>
+            <th style={{ width: '25%' }}>공유자</th>
+            <th style={{ width: '25%' }}>작성일</th>
+          </tr>
         </ListHeadWrapper>
-        {data.posts.length > 0 ? (
-          data.posts.map((res, i) => <PostListContent key={i} data={res} />)
-        ) : (
-          <Loading />
-        )}
+        <tbody>
+          {data.posts.length > 0 ? (
+            data.posts.map((res, i) => <PostListContent key={i} data={res} />)
+          ) : (
+            <Loading />
+          )}
+        </tbody>
       </StyledTable>
       <PagingCom
         totalItem={totalDataLength}
@@ -100,7 +105,7 @@ const HeadWrapper = styled.div`
   padding: 0;
 `;
 
-export const ListHeadWrapper = styled.tr`
+export const ListHeadWrapper = styled.thead`
   background-color: var(--main-color);
   color: white;
   height: 40px;
