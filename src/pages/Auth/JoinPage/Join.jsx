@@ -5,7 +5,7 @@ import Button from '../../../components/button/Button';
 import { Title } from '../LoginPage/Login';
 import { LayoutWrapper } from '../../../layout/Layout';
 import JoinAPI from '../../../api/Auth/JoinAPI';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Join() {
   const [userId, setUserId] = useState('');

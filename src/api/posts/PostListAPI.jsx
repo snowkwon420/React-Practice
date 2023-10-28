@@ -8,6 +8,7 @@ const PostListAPI = (pageNo) => {
         method: 'GET',
       });
       const data = res.json();
+
       return data;
     } catch (error) {
       console.error('post 데이터 전송 실패', error);
