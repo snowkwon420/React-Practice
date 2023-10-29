@@ -5,13 +5,25 @@ import { useLocation } from 'react-router-dom';
 import PostDetailAPI from '../../api/posts/PostDetailAPI';
 import { dateTrance } from './PostListContent';
 import Loading from '../Loading/Loading';
+import Input from '../../components/input/Input';
+import Button from '../../components/button/Button';
+import { accessTokenAtom, csrfTokenAtom } from '../../atom/Atom';
+import { useRecoilValue } from 'recoil';
+import PostCommentAPI from '../../api/posts/PostCommentAPI';
 
 function Post() {
   const [data, setData] = useState({ post: {} });
   const [commentData, setCommentData] = useState({ comments: {} });
+  const [comment, setComment] = useState('');
+  const [newComment, setNewComment] = useState('');
   const location = useLocation();
   const postID = location.state.id;
   const getPostDetail = PostDetailAPI(postID);
+
+  const token = useRecoilValue(accessTokenAtom);
+  const csrfToken = useRecoilValue(csrfTokenAtom);
+
+  const postComment = PostCommentAPI(postID, token, csrfToken, newComment);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,7 +35,17 @@ function Post() {
     fetchData();
   }, []);
 
+  const commentChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
   const time = dateTrance(data.create_date);
+
+  async function commentSubmitHandler(e) {
+    e.preventDefault();
+    await postComment();
+    setNewComment('');
+  }
 
   return (
     <>
@@ -36,12 +58,45 @@ function Post() {
         <StyledTime>{time}</StyledTime>
       </SectionWrapper>
       <StyledComment>comment : {commentData.length}</StyledComment>
+      <CommentInput>
+        <form onSubmit={commentSubmitHandler}>
+          <Input
+            width={'100%'}
+            onChange={commentChange}
+            type='text'
+            id='comment'
+            value={newComment}
+          />
+          <Button
+            type='submit'
+            height={'42px'}
+            width={'82px'}
+            content={'댓글 등록'}
+            backgroundcolor={'white'}
+            color={'var(--main-color)'}
+            style={{
+              position: 'absolute',
+              right: '0px',
+              top: '15px',
+              border: '1px solid var(--main-color)',
+            }}
+          />
+        </form>
+      </CommentInput>
       <CommentSection>
-        {commentData.legnth > 0 ? (
-          <Comments>
-            <StyledId>{commentData.comment}</StyledId>
-            <p>하하하</p>
-          </Comments>
+        {commentData.length > 0 ? (
+          commentData.map((comment, index) => (
+            <Comments key={index}>
+              <StyledId>
+                {/* 여기 username으로 변경 */}
+                {comment.user_id}
+              </StyledId>
+              <p>{comment.content}</p>
+              <StyledTime style={{ top: '5px', bottom: '0', fontSize: '10px' }}>
+                {dateTrance(comment.create_date)}
+              </StyledTime>
+            </Comments>
+          ))
         ) : (
           <Loading />
         )}
@@ -50,6 +105,9 @@ function Post() {
   );
 }
 
+const CommentInput = styled.div`
+  position: relative;
+`;
 const StyledId = styled.div`
   height: 10px;
   font-size: 10px;
@@ -68,6 +126,7 @@ const CommentSection = styled.section``;
 
 const Comments = styled.div`
   /* box-shadow: inset 0 0 10px red; */
+  position: relative;
   width: 100%;
   height: 40px;
   line-height: 40px;
