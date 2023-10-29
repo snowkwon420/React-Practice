@@ -1,24 +1,16 @@
 import React from 'react';
 import { URL } from '../baseURL';
 
-const PostCommentAPI = (
-  id,
-  accesstoken,
-  rfAccessToken,
-  csrfToken,
-  rfCsrfToken,
-  comment
-) => {
+const PostCommentAPI = (id, accesstoken, csrfToken, comment) => {
   const postComment = async () => {
-    console.log(id, accesstoken, csrfToken, comment);
+    // const encodedComment = encodeURIComponent(comment);
     try {
       const res = await fetch(`${URL}/posts/${id}/comments`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          Authorization: `Bearer access_token_cookie=${accesstoken};refresh_token_cookie=${rfAccessToken}`,
+          Authorization: `Bearer ${accesstoken}`,
           'X-CSRF-Token': `${csrfToken}`,
-          'X-CSRF-Refresh-Token': `${rfCsrfToken}`,
         },
         body: JSON.stringify({
           content: `${comment}`,

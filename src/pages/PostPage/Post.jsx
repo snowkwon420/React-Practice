@@ -13,7 +13,7 @@ import PostCommentAPI from '../../api/posts/PostCommentAPI';
 
 function Post() {
   const [data, setData] = useState({ post: {} });
-  const [commentData, setCommentData] = useState({ comments: {} });
+  const [commentData, setCommentData] = useState([]);
   const [comment, setComment] = useState('');
   const [newComment, setNewComment] = useState('');
   const location = useLocation();
@@ -25,13 +25,14 @@ function Post() {
 
   const postComment = PostCommentAPI(postID, token, csrfToken, newComment);
 
+  async function fetchData() {
+    const res = await getPostDetail();
+    setData(res.post);
+    setCommentData(res.comments);
+    console.log(res.comments);
+    return res;
+  }
   useEffect(() => {
-    async function fetchData() {
-      const res = await getPostDetail();
-      setData(res.post);
-      setCommentData(res.comments);
-      console.log(res.comments);
-    }
     fetchData();
   }, []);
 
@@ -45,6 +46,9 @@ function Post() {
     e.preventDefault();
     await postComment();
     setNewComment('');
+    const newRes = await fetchData();
+    console.log(newRes);
+    setCommentData(newRes.comments);
   }
 
   return (

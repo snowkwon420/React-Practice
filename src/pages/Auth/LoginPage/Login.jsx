@@ -10,8 +10,6 @@ import {
   accessTokenAtom,
   csrfTokenAtom,
   isLoginAtom,
-  rfAccessTokenAtom,
-  rfCsrfTokenAtom,
   userNameAtom,
 } from '../../../atom/Atom';
 
@@ -23,8 +21,6 @@ function Login() {
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
   const [csrfToken, setCsrfToken] = useRecoilState(csrfTokenAtom);
-  const [rfAccessToken, setRfAccessToken] = useRecoilState(rfAccessTokenAtom);
-  const [rfCsrfToken, setRfCsrfToken] = useRecoilState(rfCsrfTokenAtom);
   const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
   const [userName, setUserName] = useRecoilState(userNameAtom);
 
@@ -53,8 +49,6 @@ function Login() {
       const res = await LoginAPI(data);
       alert('어서오세요!');
       setAccessToken(res.access_token);
-      setRfAccessToken(res.refresh_token);
-      setRfCsrfToken(res.csrf_refresh_token);
       setCsrfToken(res.csrf_token);
       setUserName(res.username);
       setIsLogin(true);

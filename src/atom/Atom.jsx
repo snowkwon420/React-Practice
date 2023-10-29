@@ -9,20 +9,8 @@ export const accessTokenAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const rfAccessTokenAtom = atom({
-  key: 'rfAccessToken',
-  default: '',
-  effects_UNSTABLE: [persistAtom],
-});
-
 export const csrfTokenAtom = atom({
   key: 'csrfToken',
-  default: '',
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const rfCsrfTokenAtom = atom({
-  key: 'rfCsrfToken',
   default: '',
   effects_UNSTABLE: [persistAtom],
 });
