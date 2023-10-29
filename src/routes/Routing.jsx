@@ -6,6 +6,8 @@ import Join from '../pages/Auth/JoinPage/Join';
 import Login from '../pages/Auth/LoginPage/Login';
 import Post from '../pages/PostPage/Post';
 import PostList from '../pages/PostPage/PostList';
+import PostForm from '../pages/PostForm/PostForm';
+import FormIngredients from '../pages/PostForm/FormIngredients';
 
 function Routing() {
   return (
@@ -16,6 +18,8 @@ function Routing() {
       <Route path='/Login' element={<Login />} />
       <Route path='/Post' element={<Post />} />
       <Route path='/PostList' element={<PostList />} />
+      <Route path='/PostForm' element={<PostForm />} />
+      <Route path='/FormIngre' element={<FormIngredients />} />
     </Routes>
   );
 }

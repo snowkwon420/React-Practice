@@ -9,13 +9,18 @@ import PagingCom from '../../components/paging/PagingCom';
 import PostListContent from './PostListContent';
 import PostListAPI from '../../api/posts/PostListAPI';
 import Loading from '../Loading/Loading';
+import { Link, useNavigate } from 'react-router-dom';
 
 function PostList() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState({ posts: [] });
   const [totalDataLength, setTotalDataLength] = useState(0);
   const getPostList = PostListAPI(page);
+  const navigate = useNavigate();
 
+  const formButton = () => {
+    navigate('/PostForm');
+  };
   const postData = async () => {
     const newData = await getPostList();
     setData(newData);
@@ -32,6 +37,7 @@ function PostList() {
     <LayoutWrapper>
       <HeadWrapper>
         <Button
+          onClick={formButton}
           content='레시피 등록하기'
           backgroundcolor='white'
           color='var(--main-color)'
