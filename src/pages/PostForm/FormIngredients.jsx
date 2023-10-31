@@ -73,10 +73,13 @@ function FormIngredients() {
       </SectionWrapper>
 
       <h2 style={{ marginBottom: '10px' }}>재료를 등록해주세요</h2>
-      <Ingredient inData={inData} formData setFormData={setFormData} />
-      <Ingredient inData={inData} formData setFormData={setFormData} />
-      <Ingredient inData={inData} formData setFormData={setFormData} />
-      <Ingredient inData={inData} formData setFormData={setFormData} />
+      <section style={{ minHeight: '30vh' }}>
+        <Ingredient inData={inData} formData setFormData={setFormData} />
+        <Ingredient inData={inData} formData setFormData={setFormData} />
+        <Ingredient inData={inData} formData setFormData={setFormData} />
+        <Ingredient inData={inData} formData setFormData={setFormData} />
+        <Ingredient inData={inData} formData setFormData={setFormData} />
+      </section>
       <ButtonWrapper>
         <Button onClick={prevPage} content='이전' />
         <Button onClick={saveForm} content='저장' />

@@ -1,14 +1,31 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { Link } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as ProfileIcon } from '../../assets/img/icon-user.svg';
-import { isLoginAtom, userNameAtom } from '../../atom/Atom';
+import {
+  accessTokenAtom,
+  csrfTokenAtom,
+  isLoginAtom,
+  userNameAtom,
+} from '../../atom/Atom';
 
 function NavBar(props) {
+  const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginAtom);
   const userName = useRecoilValue(userNameAtom);
+  const resetToken = useResetRecoilState(accessTokenAtom);
+  const resetCsrfToken = useResetRecoilState(csrfTokenAtom);
+  const resetLogin = useResetRecoilState(isLoginAtom);
+  const resetUserName = useResetRecoilState(userNameAtom);
 
+  const logoutHandler = () => {
+    resetToken();
+    resetCsrfToken();
+    resetLogin();
+    resetUserName();
+    navigate('/');
+  };
   return (
     <NavWrapper>
       {isLogin ? (
@@ -16,7 +33,10 @@ function NavBar(props) {
           <LeftLi>
             <StyledLink to='/postlist'>Recipe</StyledLink>
           </LeftLi>
-          <Profile>{userName}</Profile>
+          <RightLi>
+            <Profile>{userName}</Profile>
+            <button onClick={logoutHandler}>로그아웃</button>
+          </RightLi>
         </ul>
       ) : (
         <ul>
