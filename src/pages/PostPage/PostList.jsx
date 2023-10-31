@@ -10,6 +10,8 @@ import PostListContent from './PostListContent';
 import PostListAPI from '../../api/posts/PostListAPI';
 import Loading from '../Loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLoginAtom } from '../../atom/Atom';
 
 function PostList() {
   const [page, setPage] = useState(1);
@@ -17,10 +19,16 @@ function PostList() {
   const [totalDataLength, setTotalDataLength] = useState(0);
   const getPostList = PostListAPI(page);
   const navigate = useNavigate();
+  const isLogin = useRecoilValue(isLoginAtom);
 
   const formButton = () => {
-    navigate('/PostForm');
+    if (isLogin) {
+      navigate('/PostForm');
+    } else if (!isLogin) {
+      navigate('/Login');
+    }
   };
+
   const postData = async () => {
     const newData = await getPostList();
     setData(newData);
@@ -33,6 +41,11 @@ function PostList() {
     postData();
   }, [page]);
 
+  const buttonStyle = {
+    border: isLogin ? '3px solid var(--main-color)' : '3px solid gray',
+    color: isLogin ? 'var(--main-color)' : 'gray',
+  };
+
   return (
     <LayoutWrapper>
       <HeadWrapper>
@@ -41,7 +54,7 @@ function PostList() {
           content='레시피 등록하기'
           backgroundcolor='white'
           color='var(--main-color)'
-          style={{ border: '3px solid var(--main-color)' }}
+          style={buttonStyle}
         />
         <InputContainer>
           <Input width='250px' style={{ padding: '0' }} />
