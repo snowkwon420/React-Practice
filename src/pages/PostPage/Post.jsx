@@ -118,7 +118,7 @@ const StyledId = styled.div`
   margin-bottom: 2px;
 `;
 
-const SectionWrapper = styled.section`
+export const SectionWrapper = styled.section`
   position: relative;
   width: 100%;
   min-height: 220px;

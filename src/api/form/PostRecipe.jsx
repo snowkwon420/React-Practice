@@ -1,7 +1,7 @@
 import React from 'react';
 import { URL } from '../baseURL';
 
-const PostRecipeAPI = (data, accesstoken, csrfToken, comment) => {
+const PostRecipeAPI = (data, accesstoken, csrfToken) => {
   const postRecipe = async () => {
     try {
       const res = await fetch(`${URL}/posts/forms`, {
@@ -11,7 +11,7 @@ const PostRecipeAPI = (data, accesstoken, csrfToken, comment) => {
           Authorization: `Bearer ${accesstoken}`,
           'X-CSRF-Token': `${csrfToken}`,
         },
-        body: data,
+        body: JSON.stringify(data),
       });
       const response = res.json();
       console.log(response);
