@@ -17,7 +17,7 @@ function Login() {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isIdValid, setIsIdValid] = useState(null);
-  const [isPwValid, setIsPwValid] = useState(null);
+  const [isPwValid, setIsPwValid] = useState(true);
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
   const [csrfToken, setCsrfToken] = useRecoilState(csrfTokenAtom);
@@ -29,11 +29,13 @@ function Login() {
   function idValidCheck(event) {
     setUserId(event.target.value);
   }
-
-  function pwValidCheck(event) {
+  function setPassword(event) {
     setUserPassword(event.target.value);
+  }
+
+  function pwValidCheck() {
     const testPassword = /^[A-Za-z0-9]{6,20}$/;
-    if (userPassword !== '' && userPassword.match(testPassword)) {
+    if (userPassword === userPassword.match(testPassword)) {
       setIsPwValid(true);
     } else {
       setIsPwValid(false);
@@ -63,6 +65,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     onHandleSubmit();
+    pwValidCheck();
   };
 
   return (
@@ -85,7 +88,7 @@ function Login() {
           name='userPw'
           placeholder=''
           value={userPassword}
-          onChange={pwValidCheck}
+          onChange={setPassword}
           isvalid={isPwValid}
           errmsg='* 6자리 이상 입력하세요'
         />

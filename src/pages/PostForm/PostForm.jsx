@@ -58,9 +58,10 @@ function PostForm() {
           type='text'
           name='title'
           value={title}
-          width='50%'
+          width='70%'
           placeholder='요리 이름'
           onChange={(e) => onChange('title', e.target.value)}
+          labelHidden={true}
           style={{
             border: '3px solid black',
             left: '5px',
@@ -69,9 +70,9 @@ function PostForm() {
           onFocus={(e) => (e.target.style.borderColor = 'var(--main-color)')}
           onBlur={(e) => (e.target.style.borderColor = 'black')}
         />
-
-        <div>레시피 내용</div>
+        <h3>레시피 내용</h3>
         <div
+          style={{ marginBottom: '30px', marginTop: '10px' }}
           sx={{
             '  .ql-editor': {
               padding: '30px',
@@ -87,11 +88,14 @@ function PostForm() {
           <ReactQuill
             value={contents}
             onChange={(value) => onChange('contents', value)}
+            style={{ height: '300px' }}
           />
         </div>
-        <hr />
-
-        <Button onClick={nextPage} content='다음'></Button>
+        <Button
+          onClick={nextPage}
+          content='다음'
+          style={{ marginTop: '100px' }}
+        />
       </div>
     </>
   );

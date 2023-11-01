@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 import { ReactComponent as UserIdIcon } from '../../assets/img/icon-userID.svg';
 import { ReactComponent as UserPwIcon } from '../../assets/img/icon-userPwIcon.svg';
 import { ReactComponent as UserEmailIcon } from '../../assets/img/icon-userEmail.svg';
@@ -13,7 +13,7 @@ function Input(props) {
           {props.label}
         </StlyedLabel>
         <StyledInput {...props} />
-        {props.isvalid ? null : <ErrorMessage>{props.errmsg}</ErrorMessage>}
+        {!props.isvalid && <ErrorMessage>{props.errmsg}</ErrorMessage>}
       </InputWrapper>
     </>
   );
@@ -62,6 +62,15 @@ const StlyedLabel = styled.label`
   color: #878787;
   height: 15px;
   width: 100%;
+  ${(props) =>
+    props.labelHidden &&
+    css`
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    `}
 `;
 
 const StyledInput = styled.input`
