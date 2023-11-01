@@ -24,6 +24,7 @@ function FormIngredients() {
     },
     ingredients: [],
   });
+  const [ingredientCount, setIngredientCount] = useState(1);
   const [inData, setInData] = useState([]);
   const [selected, setSelected] = useState([]);
   const navigate = useNavigate();
@@ -74,11 +75,15 @@ function FormIngredients() {
 
       <h2 style={{ marginBottom: '10px' }}>재료를 등록해주세요</h2>
       <section style={{ minHeight: '30vh' }}>
-        <Ingredient inData={inData} formData setFormData={setFormData} />
-        <Ingredient inData={inData} formData setFormData={setFormData} />
-        <Ingredient inData={inData} formData setFormData={setFormData} />
-        <Ingredient inData={inData} formData setFormData={setFormData} />
-        <Ingredient inData={inData} formData setFormData={setFormData} />
+        {[...Array(ingredientCount)].map((_, index) => (
+          <Ingredient
+            key={index}
+            inData={inData}
+            formData
+            setFormData={setFormData}
+            setIngredientCount={setIngredientCount}
+          />
+        ))}
       </section>
       <ButtonWrapper>
         <Button onClick={prevPage} content='이전' />

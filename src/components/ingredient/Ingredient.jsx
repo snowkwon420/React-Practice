@@ -4,10 +4,16 @@ import { MdAdd } from 'react-icons/md';
 import { ReactComponent as PlusButton } from '../../assets/img/icon-plus.svg';
 import { styled } from 'styled-components';
 
-export const Ingredient = ({ inData, formData, setFormData }) => {
+export const Ingredient = ({
+  inData,
+  formData,
+  setFormData,
+  setIngredientCount,
+}) => {
   const [amout, setAmount] = useState('0');
   const [ingredient, setIngredient] = useState({});
   const [isButton, setIsButton] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
@@ -35,17 +41,34 @@ export const Ingredient = ({ inData, formData, setFormData }) => {
         ...prevFormData,
         ingredients: [...prevFormData.ingredients, newIngredient],
       }));
-
+      setIngredientCount((prevCount) => prevCount + 1);
       setIsButton(false);
     },
-    [amout, ingredient, setFormData]
+    [amout, ingredient, setFormData, setIngredientCount]
   );
 
   return (
     <Wrapper>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} style={{ fontSize: '20px' }}>
         품목:
-        <select value={ingredient.name} onChange={handleIngredientChange}>
+        <select
+          value={ingredient.name}
+          onChange={handleIngredientChange}
+          disabled={!isButton}
+          selected={!isButton}
+          style={{
+            padding: '8px',
+            borderRadius: '5px',
+            border: '1px solid #ddd',
+            backgroundColor: '#f9f9f9',
+            fontSize: '16px',
+            marginLeft: '15px',
+            marginRight: '15px',
+          }}
+        >
+          <option disabled selected>
+            재료선택
+          </option>
           {inData && inData.ingredients && inData.ingredients.length > 0 ? (
             inData.ingredients.map((res, i) => (
               <option key={i}>{res.name}</option>
@@ -58,15 +81,22 @@ export const Ingredient = ({ inData, formData, setFormData }) => {
         <input
           type='number'
           min='0'
-          style={{ height: '15px', width: '120px' }}
+          readOnly={!isButton}
+          style={{
+            height: '20px',
+            width: '120px',
+            padding: '8px',
+            borderRadius: '5px',
+            border: '1px solid #ddd',
+            backgroundColor: '#f9f9f9',
+            fontSize: '16px',
+            marginLeft: '15px',
+            marginRight: '15px',
+          }}
           value={amout}
           onChange={handleAmountChange}
         />
-        {isButton && (
-          <button type='submit'>
-            <PlusButton />
-          </button>
-        )}
+        {isButton && <StyledButton type='submit'>추가하기</StyledButton>}
       </form>
     </Wrapper>
   );
@@ -78,4 +108,14 @@ const Wrapper = styled.section`
   gap: 20px;
   height: 30px;
   align-items: center;
+  margin: 20px 0;
+`;
+
+const StyledButton = styled.button`
+  height: 40px;
+  width: 100px;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: var(--main-color);
 `;

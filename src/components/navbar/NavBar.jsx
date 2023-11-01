@@ -35,7 +35,7 @@ function NavBar(props) {
           </LeftLi>
           <RightLi>
             <Profile>{userName}</Profile>
-            <button onClick={logoutHandler}>로그아웃</button>
+            <Logout onClick={logoutHandler}>로그아웃</Logout>
           </RightLi>
         </ul>
       ) : (
@@ -56,6 +56,12 @@ function NavBar(props) {
 const Profile = styled.div`
   font-size: 18px;
   margin-right: 20px;
+  color: white;
+`;
+
+const Logout = styled.button`
+  font-size: 14px;
+  font-family: 'yg-jalnan';
   color: white;
 `;
 const NavWrapper = styled.nav`
